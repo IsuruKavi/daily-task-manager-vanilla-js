@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", function () {
   getTasks()
 })
 
+// Function to convert 24-hour time to 12-hour format with AM/PM
+function formatTimeTo12Hour(time24) {
+  if (!time24) return '';
+  const [hours, minutes] = time24.split(':');
+  const hour = parseInt(hours, 10);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 || 12;
+  return `${hour12}:${minutes} ${ampm}`;
+}
+
 
 const addTaskBtn = document.querySelector(".addBtn");
 console.log(addTaskBtn)
@@ -25,8 +35,11 @@ const getTasks = async()=>{
     result.map((task) => {
       const table = document.getElementById("task-table").getElementsByTagName("tbody")[0];
       const newRow = table.insertRow();
+      if (task.isComplete) {
+        newRow.classList.add('completed-task');
+      }
       newRow.insertCell(0).innerHTML = task.task;
-      newRow.insertCell(1).innerHTML = task.startTime;
+      newRow.insertCell(1).innerHTML = formatTimeTo12Hour(task.startTime);
       if (task.isComplete) {
          newRow.insertCell(2).innerHTML=`<button data-task-id=${task.id} data-state=${task.isComplete} class="mark-btn" style="margin-right:1dvw; background-color:papayawhip">Unmark as complete</button>`
       } else {

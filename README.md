@@ -38,9 +38,9 @@ If you're not familiar with these concepts, here are some helpful links:
 - [JavaScript.info - DOM Manipulation](https://javascript.info/dom-nodes)
 - [Event bubbling](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling)
 - [Evnet-delegation](https://www.greatfrontend.com/questions/quiz/explain-event-delegation)
-- [Express.js] (https://expressjs.com/)
+- [Express.js](https://expressjs.com/)
 - [cors](https://expressjs.com/en/resources/middleware/cors.html )
-- [middlewares] (https://expressjs.com/en/guide/using-middleware.html)
+- [middlewares](https://expressjs.com/en/guide/using-middleware.html)
 
 > 💡 **Tip:** Understanding the basics first will give you less frustration when going through the code!
 
@@ -291,11 +291,6 @@ After completing this project, you can:
 
 ---
 
-## 📄 License
-
-This is a learning project. Feel free to use, modify, and learn from it!
-
----
 
 ## 🤝 Contributing
 

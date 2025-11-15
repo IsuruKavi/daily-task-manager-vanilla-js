@@ -1,4 +1,11 @@
 // ============================================
+// API CONFIGURATION
+// ============================================
+// Base URL for the backend API
+// Using a constant makes it easy to change if needed (e.g., for production)
+const API_BASE_URL = "http://127.0.0.1:3000";
+
+// ============================================
 // PAGE LOAD EVENT - Runs when page finishes loading
 // ============================================
 // This waits for the HTML to fully load before running JavaScript
@@ -59,11 +66,11 @@ const getTasks = async()=>{
   
   try {
     // Send a GET request to the server to fetch all tasks
-    const response = await fetch("http://127.0.0.1:3000/tasks");
+    const response = await fetch(`${API_BASE_URL}/tasks`);
     
     // Check if the request was successful
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(`Failed to load tasks. Server returned status: ${response.status}`);
     }
 
     // Convert the response to JSON format (JavaScript object)
@@ -100,8 +107,9 @@ const getTasks = async()=>{
     })
     console.log(result);
   } catch (error) {
-    // If there's an error, log it to the console
-    console.error(error.message);
+    // If there's an error, show user-friendly message
+    console.error("Error loading tasks:", error.message);
+    alert("Failed to load tasks. Please make sure the server is running and try again.");
   }
 
 }
@@ -114,12 +122,14 @@ document.querySelector("#taskAddForm").addEventListener('submit', async function
     // Prevent the form from refreshing the page (default behavior)
     event.preventDefault();
     
+    try {
+    
     // Get the input fields
     const task = document.querySelector("#task");
     const startTime = document.querySelector("#start-time");
     
     // Send a POST request to the server to create a new task
-    const response = await fetch("http://127.0.0.1:3000/tasks", {
+    const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: "POST",  // HTTP method for creating new data
         headers: {
           "Content-Type": "application/json",  // Tell server we're sending JSON
@@ -128,17 +138,29 @@ document.querySelector("#taskAddForm").addEventListener('submit', async function
         body: JSON.stringify({ task:task.value,startTime:startTime.value }),
       });
   
-  console.log("submit form", task.value, startTime.value)
-  
-  // Clear the input fields after submission
-  task.value =""
-  startTime.value=""
-  
-  // Hide the modal after adding task
-  document.querySelector(".addTask").style.display = "none"
-  
-  // Refresh the task list to show the new task
-  await getTasks();
+    // Check if the request was successful before proceeding
+    if (response.ok) {
+        console.log("submit form", task.value, startTime.value)
+        
+        // Clear the input fields after successful submission
+        task.value = ""
+        startTime.value = ""
+        
+        // Hide the modal after adding task
+        document.querySelector(".addTask").style.display = "none"
+        
+        // Refresh the task list to show the new task
+        await getTasks();
+    } else {
+        // If request failed, show error message
+        const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+        alert(`Failed to add task: ${errorData.error || "Please try again."}`);
+    }
+  } catch (error) {
+    // If there's a network error or other exception
+    console.error("Error adding task:", error);
+    alert("Failed to add task. Please check your connection and try again.");
+  }
 })
 
 // ============================================
@@ -174,16 +196,24 @@ taskList.addEventListener("click", async function (e) {
    
   try {
     // Send DELETE request to server to remove the task
-    await fetch(`http://127.0.0.1:3000/tasks/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
       method: "DELETE",  // HTTP method for deleting data
     })
-    console.log("success full deleted")
+    
+    // Check if the request was successful
+    if (response.ok) {
+      console.log("Task deleted successfully")
+      // Only refresh if deletion was successful
+      await getTasks()
+    } else {
+      // If deletion failed, show error message
+      const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+      alert(`Failed to delete task: ${errorData.error || "Please try again."}`);
+    }
   } catch (error) {
-    // If error occurs, log it
-    console.error("error in deleting")
-  } finally {
-    // Always refresh the task list after deletion attempt
-    getTasks()
+    // If there's a network error or other exception
+    console.error("Error deleting task:", error);
+    alert("Failed to delete task. Please check your connection and try again.");
   }
   
   }
@@ -195,7 +225,7 @@ taskList.addEventListener("click", async function (e) {
   if (e.target.classList.contains('mark-btn')) {
     try {
       // Send PATCH request to update the task's completion status
-      await fetch('http://127.0.0.1:3000/tasks', {
+      const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: "PATCH",  // HTTP method for updating data
         headers: {
           "Content-Type": "application/json",  // Tell server we're sending JSON
@@ -203,13 +233,21 @@ taskList.addEventListener("click", async function (e) {
         // Send task ID and new completion status (toggle it)
         body: JSON.stringify({ id, isComplete:!state  }),
       })
-      console.log("updated one",{id,isComplete:!state})
+      
+      // Check if the request was successful
+      if (response.ok) {
+        console.log("Task updated successfully", {id, isComplete:!state})
+        // Only refresh if update was successful
+        await getTasks()
+      } else {
+        // If update failed, show error message
+        const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+        alert(`Failed to update task: ${errorData.error || "Please try again."}`);
+      }
     } catch (error) {
-      // If error occurs, log it
-      console.error("error in updating")
-    } finally {
-      // Always refresh the task list after update attempt
-      getTasks()
+      // If there's a network error or other exception
+      console.error("Error updating task:", error);
+      alert("Failed to update task. Please check your connection and try again.");
     }
   }
 

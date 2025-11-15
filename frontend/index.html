@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class=" addTask ">
+        <div class="modal-content">
+            <form id="taskAddForm">
+                <label for="task">Task:</label><br>
+                <input type="text" id="task" name="task" value=""><br>
+                <label for="start-time">Start time</label><br>
+                <input type="time" id="start-time" name="start-time"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            <button id="form-close">
+                close
+            </button>
+        </div>
+    </div>
+    <div class="topic">
+        <h1>Manage Your Task</h1>
+    </div>
+
+    <div class=" center" style="margin-top: 2dvh;">
+        <button class="addBtn ">
+            Add task
+        </button>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <div style="  margin-top: 4dvh;">
+
+            <table id="task-table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Start time</th>
+
+                    </tr>
+                </thead>
+                <tbody id="task-list">
+                   
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

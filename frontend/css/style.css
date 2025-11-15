@@ -1,241 +1,309 @@
+/* ============================================
+   RESET STYLES - Removes default browser styling
+   ============================================ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;           /* Remove default margin from all elements */
+    padding: 0;          /* Remove default padding from all elements */
+    box-sizing: border-box;  /* Makes padding and border included in element's width */
 }
 
+/* ============================================
+   BODY STYLES - Main page background and font
+   ============================================ */
 body {
-    background: #f5f7fa;
-    font-family: "Roboto", sans-serif;
-    padding: 20px;
+    background: #f5f7fa;  /* Light gray background color */
+    font-family: "Roboto", sans-serif;  /* Use Roboto font */
+    padding: 20px;  /* Add space around the page content */
 }
 
+/* ============================================
+   HEADING STYLES - Page title
+   ============================================ */
 .topic {
-    text-align: center;
-    margin: 30px 0;
+    text-align: center;  /* Center the heading */
+    margin: 30px 0;  /* Add space above and below */
 }
 
 .topic h1 {
-    color: #2c3e50;
-    font-size: 2.5rem;
+    color: #2c3e50;  /* Dark blue-gray color */
+    font-size: 2.5rem;  /* Large font size */
 }
 
+/* ============================================
+   BUTTON CONTAINER - Centers the Add Task button
+   ============================================ */
 .center {
-    text-align: center;
-    margin: 30px 0;
+    text-align: center;  /* Center the button */
+    margin: 30px 0;  /* Add space above and below */
 }
 
+/* ============================================
+   ADD TASK BUTTON - Main button to open modal
+   ============================================ */
 .addBtn {
-    background: #4a90e2;
-    color: white;
-    border: none;
-    padding: 15px 35px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
+    background: #4a90e2;  /* Blue background */
+    color: white;  /* White text */
+    border: none;  /* Remove border */
+    padding: 15px 35px;  /* Add space inside button (top/bottom, left/right) */
+    border-radius: 8px;  /* Rounded corners */
+    font-size: 1.1rem;  /* Font size */
+    cursor: pointer;  /* Show hand cursor on hover */
 }
 
+/* When mouse hovers over the button */
 .addBtn:hover {
-    background: #357abd;
+    background: #357abd;  /* Darker blue */
 }
 
+/* ============================================
+   TABLE CONTAINER - Wrapper for the task table
+   ============================================ */
 .table-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    padding: 0 20px;
+    display: flex;  /* Use flexbox layout */
+    justify-content: center;  /* Center the table horizontally */
+    margin-top: 40px;  /* Add space at the top */
+    padding: 0 20px;  /* Add space on left and right */
 }
 
+/* ============================================
+   TABLE WRAPPER - White box containing the table
+   ============================================ */
 .table-wrapper {
-    background: white;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 1000px;
-    border: 1px solid #e0e0e0;
+    background: white;  /* White background */
+    border-radius: 8px;  /* Rounded corners */
+    width: 100%;  /* Full width of container */
+    max-width: 1000px;  /* Maximum width limit */
+    border: 1px solid #e0e0e0;  /* Light gray border */
 }
 
+/* ============================================
+   TABLE STYLES - Task display table
+   ============================================ */
 #task-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%;  /* Full width */
+    border-collapse: collapse;  /* Remove space between table cells */
 }
 
+/* Table header (column names) */
 #task-table thead {
-    background: #f8f9fa;
-    color: #2c3e50;
+    background: #f8f9fa;  /* Light gray background */
+    color: #2c3e50;  /* Dark text color */
 }
 
+/* Table header cells */
 #task-table th {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 2px solid #e0e0e0;
+    padding: 15px;  /* Space inside each header cell */
+    text-align: left;  /* Align text to the left */
+    border-bottom: 2px solid #e0e0e0;  /* Bottom border */
 }
 
+/* Table data cells (task information) */
 #task-table td {
-    padding: 15px;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;  /* Space inside each cell */
+    border-bottom: 1px solid #e0e0e0;  /* Bottom border for each row */
 }
 
+/* When mouse hovers over a table row */
 #task-table tbody tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5;  /* Light gray background */
 }
 
-/* Completed task styling */
+/* ============================================
+   COMPLETED TASK STYLES - Visual distinction for finished tasks
+   ============================================ */
+/* Row containing a completed task */
 #task-table tbody tr.completed-task {
-    background-color: #e8f5e9;
+    background-color: #e8f5e9;  /* Light green background */
 }
 
+/* When hovering over a completed task */
 #task-table tbody tr.completed-task:hover {
-    background-color: #c8e6c9;
+    background-color: #c8e6c9;  /* Slightly darker green */
 }
 
+/* Task name in completed task - green and italic */
 #task-table tbody tr.completed-task td:first-child {
-    color: #66bb6a;
-    font-style: italic;
+    color: #66bb6a;  /* Green text color */
+    font-style: italic;  /* Make text italic */
 }
 
+/* Time in completed task - green color */
 #task-table tbody tr.completed-task td:nth-child(2) {
-    color: #81c784;
+    color: #81c784;  /* Green text color */
 }
 
+/* ============================================
+   BUTTON STYLES - Mark complete and Delete buttons
+   ============================================ */
+/* Mark as complete/uncomplete button */
 .mark-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-right: 10px;
+    padding: 8px 16px;  /* Space inside button */
+    border: none;  /* No border */
+    border-radius: 5px;  /* Slightly rounded corners */
+    font-size: 0.9rem;  /* Font size */
+    cursor: pointer;  /* Hand cursor on hover */
+    margin-right: 10px;  /* Space to the right */
 }
 
+/* When hovering over mark button */
 .mark-btn:hover {
-    opacity: 0.8;
+    opacity: 0.8;  /* Make button slightly transparent */
 }
 
+/* Delete button */
 .delete-btn {
-    padding: 8px 16px;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
+    padding: 8px 16px;  /* Space inside button */
+    background: #e74c3c;  /* Red background */
+    color: white;  /* White text */
+    border: none;  /* No border */
+    border-radius: 5px;  /* Slightly rounded corners */
+    font-size: 0.9rem;  /* Font size */
+    cursor: pointer;  /* Hand cursor on hover */
 }
 
+/* When hovering over delete button */
 .delete-btn:hover {
-    background: #c0392b;
+    background: #c0392b;  /* Darker red */
 }
 
+/* ============================================
+   MODAL STYLES - Popup window for adding tasks
+   ============================================ */
+/* Background overlay when modal is open */
 .addTask {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    display: none;  /* Hidden by default */
+    position: fixed;  /* Fixed position on screen */
+    top: 0;  /* Start from top */
+    left: 0;  /* Start from left */
+    width: 100%;  /* Full width */
+    height: 100%;  /* Full height */
+    background: rgba(0, 0, 0, 0.5);  /* Semi-transparent black background */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    z-index: 1000;  /* Show on top of other elements */
 }
 
+/* Modal content box */
 .modal-content {
-    background: white;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    border: 1px solid #e0e0e0;
+    background: white;  /* White background */
+    border-radius: 8px;  /* Rounded corners */
+    width: 90%;  /* 90% of screen width */
+    max-width: 500px;  /* Maximum width */
+    border: 1px solid #e0e0e0;  /* Light gray border */
 }
 
+/* Modal header section */
 .modal-header {
-    background: #f8f9fa;
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: #f8f9fa;  /* Light gray background */
+    padding: 20px;  /* Space inside */
+    border-bottom: 1px solid #e0e0e0;  /* Bottom border */
+    display: flex;  /* Use flexbox */
+    justify-content: space-between;  /* Space between title and close button */
+    align-items: center;  /* Center items vertically */
 }
 
+/* Modal title */
 .modal-header h2 {
-    margin: 0;
-    color: #2c3e50;
+    margin: 0;  /* Remove default margin */
+    color: #2c3e50;  /* Dark text color */
 }
 
+/* Close button (X) in modal */
 .close-btn {
-    background: #e0e0e0;
-    color: #2c3e50;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
+    background: #e0e0e0;  /* Light gray background */
+    color: #2c3e50;  /* Dark text color */
+    border: none;  /* No border */
+    width: 30px;  /* Fixed width */
+    height: 30px;  /* Fixed height */
+    border-radius: 50%;  /* Make it circular */
+    font-size: 1.2rem;  /* Font size */
+    cursor: pointer;  /* Hand cursor */
 }
 
+/* When hovering over close button */
 .close-btn:hover {
-    background: #c0c0c0;
+    background: #c0c0c0;  /* Darker gray */
 }
 
+/* ============================================
+   FORM STYLES - Input fields and submit button
+   ============================================ */
+/* Form container */
 #taskAddForm {
-    padding: 30px;
+    padding: 30px;  /* Space inside form */
 }
 
+/* Each form field group (label + input) */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px;  /* Space below each field */
 }
 
+/* Form labels */
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: 600;
+    display: block;  /* Each label on its own line */
+    margin-bottom: 5px;  /* Space below label */
+    color: #333;  /* Dark gray text */
+    font-weight: 600;  /* Bold text */
 }
 
+/* Text and time input fields */
 .form-group input[type="text"],
 .form-group input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 1rem;
+    width: 100%;  /* Full width */
+    padding: 10px;  /* Space inside input */
+    border: 1px solid #e0e0e0;  /* Light gray border */
+    border-radius: 5px;  /* Rounded corners */
+    font-size: 1rem;  /* Font size */
 }
 
+/* When input field is focused (clicked on) */
 .form-group input[type="text"]:focus,
 .form-group input[type="time"]:focus {
-    outline: none;
-    border-color: #4a90e2;
+    outline: none;  /* Remove default outline */
+    border-color: #4a90e2;  /* Blue border when focused */
 }
 
+/* Container for submit button */
 .form-actions {
-    margin-top: 20px;
+    margin-top: 20px;  /* Space above button */
 }
 
+/* Submit button */
 .submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
+    width: 100%;  /* Full width */
+    padding: 12px;  /* Space inside button */
+    background: #4a90e2;  /* Blue background */
+    color: white;  /* White text */
+    border: none;  /* No border */
+    border-radius: 5px;  /* Rounded corners */
+    font-size: 1.1rem;  /* Font size */
+    cursor: pointer;  /* Hand cursor */
 }
 
+/* When hovering over submit button */
 .submit-btn:hover {
-    background: #357abd;
+    background: #357abd;  /* Darker blue */
 }
 
-/* Responsive Design */
+/* ============================================
+   RESPONSIVE DESIGN - Styles for mobile devices
+   ============================================ */
+/* When screen width is 768px or less (mobile/tablet) */
 @media (max-width: 768px) {
+    /* Smaller heading on mobile */
     .topic h1 {
         font-size: 2rem;
     }
 
+    /* Smaller table cells on mobile */
     #task-table th,
     #task-table td {
-        padding: 10px;
-        font-size: 0.9rem;
+        padding: 10px;  /* Less padding */
+        font-size: 0.9rem;  /* Smaller font */
     }
 
+    /* Wider modal on mobile */
     .modal-content {
-        width: 95%;
+        width: 95%;  /* Almost full width */
     }
 }

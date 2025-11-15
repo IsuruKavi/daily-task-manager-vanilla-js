@@ -2,48 +2,65 @@
 <html lang="en">
 
 <head>
+    <!-- This section contains metadata about the webpage -->
     <meta charset="UTF-8" />
+    <!-- Makes the page responsive on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Website</title>
+    <!-- Link to our CSS file for styling -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Importing Google Fonts (Roboto) for better typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <div class=" addTask ">
+    <!-- Modal/Popup for adding new tasks - hidden by default -->
+    <div class="addTask">
         <div class="modal-content">
+            <!-- Header of the modal with title and close button -->
             <div class="modal-header">
                 <h2>Add New Task</h2>
                 <button id="form-close" class="close-btn">✕</button>
             </div>
+            <!-- Form for adding a new task -->
             <form id="taskAddForm">
+                <!-- Input field for task name -->
                 <div class="form-group">
                     <label for="task">Task Name</label>
                     <input type="text" id="task" name="task" placeholder="Enter your task..." required>
                 </div>
+                <!-- Input field for start time -->
                 <div class="form-group">
                     <label for="start-time">Start Time</label>
                     <input type="time" id="start-time" name="start-time" required>
                 </div>
+                <!-- Submit button to add the task -->
                 <div class="form-actions">
                     <input type="submit" value="Add Task" class="submit-btn">
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Main heading of the page -->
     <div class="topic">
         <h1>Manage Your Task</h1>
     </div>
 
+    <!-- Button to open the add task modal -->
     <div class="center" style="margin-top: 2dvh;">
         <button class="addBtn">
             ➕ Add task
         </button>
     </div>
+
+    <!-- Container for the task table -->
     <div class="table-container">
         <div class="table-wrapper">
+            <!-- Table to display all tasks -->
             <table id="task-table">
+                <!-- Table header with column names -->
                 <thead>
                     <tr>
                         <th>Task</th>
@@ -52,6 +69,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
+                <!-- Table body where tasks will be displayed dynamically by JavaScript -->
                 <tbody id="task-list">
                    
                 </tbody>
@@ -59,6 +77,7 @@
         </div>
     </div>
 
+    <!-- Link to our JavaScript file for functionality -->
     <script src="js/script.js"></script>
 </body>
 

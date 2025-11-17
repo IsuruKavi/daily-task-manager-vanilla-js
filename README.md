@@ -2,7 +2,9 @@
 
 A simple daily task management tool built with **HTML**, **CSS**, and **Vanilla JavaScript**. This tutorial project is designed for **absolute beginners**.
 
-![App Demo](demo.gif)
+<p align="center">
+  <img src="demo.gif" alt="App Demo" />
+</p>
 
 > ⚠️ **Note:** For simplicity, this project uses **in-memory storage** (arrays) instead of a database. This means all data is lost when the server restarts. This is intentional for learning purposes - it keeps the project simple and focused on core concepts without database complexity.
 

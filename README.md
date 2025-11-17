@@ -2,6 +2,8 @@
 
 A simple daily task management tool built with **HTML**, **CSS**, and **Vanilla JavaScript**. This tutorial project is designed for **absolute beginners**.
 
+![App Demo](demo.gif)
+
 > ⚠️ **Note:** For simplicity, this project uses **in-memory storage** (arrays) instead of a database. This means all data is lost when the server restarts. This is intentional for learning purposes - it keeps the project simple and focused on core concepts without database complexity.
 
 ## 🎯 Why This Project?
@@ -41,7 +43,7 @@ If you're not familiar with these concepts, here are some helpful links:
 - [Event bubbling](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling)
 - [Evnet-delegation](https://www.greatfrontend.com/questions/quiz/explain-event-delegation)
 - [Express.js](https://expressjs.com/)
-- [cors](https://expressjs.com/en/resources/middleware/cors.html )
+- [cors](https://expressjs.com/en/resources/middleware/cors.html)
 - [middlewares](https://expressjs.com/en/guide/using-middleware.html)
 
 > 💡 **Tip:** Understanding the basics first will give you less frustration when going through the code!
@@ -72,11 +74,13 @@ daily-task-manager-vanilla-js/
 ## 🎨 Frontend
 
 The frontend is built with:
+
 - **HTML** - Structure
 - **CSS** - Styling (minimal, beginner-friendly)
 - **Vanilla JavaScript** - Functionality
 
 ### Key Features:
+
 - ✅ Add new tasks with time
 - ✅ View all tasks in a table
 - ✅ Mark tasks as complete/incomplete
@@ -85,6 +89,7 @@ The frontend is built with:
 - ✅ Time displayed in 12-hour format (AM/PM)
 
 ### Technologies Used:
+
 - **Fetch API** - For connecting with the backend (built-in JavaScript, no libraries needed!)
 
 ---
@@ -92,10 +97,12 @@ The frontend is built with:
 ## ⚙️ Backend
 
 The backend is built with:
+
 - **Node.js** - JavaScript runtime
 - **Express.js** - Web framework
 
 ### What You'll Learn:
+
 - ✅ Basic CRUD operations (Create, Read, Update, Delete)
 - ✅ How to use CORS (Cross-Origin Resource Sharing)
 - ✅ What is middleware and how to use it at beginner level
@@ -105,12 +112,12 @@ The backend is built with:
 
 ### API Endpoints:
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/tasks` | Get all tasks (sorted by completion status) |
-| POST | `/tasks` | Create a new task |
-| PATCH | `/tasks` | Update task completion status |
-| DELETE | `/tasks/:id` | Delete a task by ID |
+| Method | Endpoint     | Description                                 |
+| ------ | ------------ | ------------------------------------------- |
+| GET    | `/tasks`     | Get all tasks (sorted by completion status) |
+| POST   | `/tasks`     | Create a new task                           |
+| PATCH  | `/tasks`     | Update task completion status               |
+| DELETE | `/tasks/:id` | Delete a task by ID                         |
 
 ---
 
@@ -136,21 +143,25 @@ Make sure you have **Node.js** installed on your system.
 ### Step 3: Setup Backend
 
 1. Navigate to the backend folder:
+
    ```bash
    cd backend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the server:
+
    ```bash
    node app.js
    ```
 
    You should see:
+
    ```
    Example app listening on port 3000
    ```
@@ -160,18 +171,19 @@ Make sure you have **Node.js** installed on your system.
 ### Step 4: Setup Frontend
 
 1. Navigate to the frontend folder (in a new terminal):
+
    ```bash
    cd frontend
    ```
 
 2. **Option A: Using VS Code Live Server (Recommended)**
+
    - Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in VS Code
    - Right-click on `index.html`
    - Select "Open with Live Server"
 
 3. **Option B: Open Directly in Browser**
    - Simply open `index.html` with your browser
-  
 
 ### Step 5: Run the Application
 
@@ -188,11 +200,13 @@ Make sure you have **Node.js** installed on your system.
 To see how error handling works, try these test endpoints:
 
 1. **Test Error Handler:**
+
    ```
    GET http://127.0.0.1:3000/test-error
    ```
 
 2. **Test Unhandled Error:**
+
    ```
    GET http://127.0.0.1:3000/test-error-2
    ```
@@ -209,11 +223,13 @@ To see how error handling works, try these test endpoints:
 ## 🎓 Learning Path
 
 1. **Start with Frontend:**
+
    - Open `frontend/index.html` and understand the structure
    - Check `frontend/js/script.js` to see how JavaScript interacts with the DOM
    - Understand how the Fetch API connects to the backend
 
 2. **Then Explore Backend:**
+
    - Open `backend/app.js` to see the server setup
    - Check `backend/util.js` to understand middleware
    - Read `backend/ERROR_HANDLER_SCENARIOS.md` for error handling examples
@@ -242,6 +258,7 @@ To see how error handling works, try these test endpoints:
 ### Backend Files:
 
 - **`app.js`** - Main server file with:
+
   - Server setup
   - Route handlers (GET, POST, PATCH, DELETE)
   - Error handling
@@ -259,6 +276,7 @@ To see how error handling works, try these test endpoints:
 ### Backend Issues:
 
 - **Port already in use:**
+
   - Change the port in `backend/app.js` (line 30)
   - Or stop the process using port 3000
 
@@ -268,6 +286,7 @@ To see how error handling works, try these test endpoints:
 ### Frontend Issues:
 
 - **CORS errors:**
+
   - Make sure the backend server is running
   - Check that CORS is enabled in `backend/app.js`
 
@@ -293,10 +312,10 @@ After completing this project, you can:
 
 ---
 
-
 ## 🤝 Contributing
 
 This is a tutorial project for beginners. Feel free to:
+
 - Fork the repository
 - Make improvements
 - Add new features
@@ -307,6 +326,7 @@ This is a tutorial project for beginners. Feel free to:
 ## 📧 Support
 
 If you have questions or get stuck:
+
 1. Check the code comments - they explain everything in detail
 2. Read the error messages carefully
 3. Check browser console for frontend errors

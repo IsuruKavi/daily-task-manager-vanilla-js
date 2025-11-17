@@ -2,11 +2,13 @@
 
 A simple daily task management tool built with **HTML**, **CSS**, and **Vanilla JavaScript**. This tutorial project is designed for **absolute beginners**.
 
+> ⚠️ **Note:** For simplicity, this project uses **in-memory storage** (arrays) instead of a database. This means all data is lost when the server restarts. This is intentional for learning purposes - it keeps the project simple and focused on core concepts without database complexity.
+
 ## 🎯 Why This Project?
 
 When starting web development, it's better to build simple web apps with base technologies first, instead of jumping directly to frameworks. Understanding how to handle things **without frameworks** is interesting and useful at the beginning. This project teaches you:
 
-- How to build a full-stack application from scratch
+- How to build a full-stack application from scratch(Here i don't use database for simplicity, just use array to store data)
 - Frontend-backend communication using plain JavaScript
 - Basic CRUD operations
 - Express.js fundamentals

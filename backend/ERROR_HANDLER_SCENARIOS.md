@@ -155,3 +155,4 @@ you can use postman instead of curl command
 - Current routes handle errors themselves, so they don't use the error handler
 - Test routes (`/test-error` and `/test-error-2`) demonstrate how error handler works
 
+

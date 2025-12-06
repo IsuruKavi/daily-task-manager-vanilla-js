@@ -10,6 +10,30 @@ const {
 
 
 const express = require('express')
+const Pool = require('pg').Pool;
+const pool = new Pool({
+    user: 'isuru',
+    host: 'localhost', //host is the address where your PostgreSQL server is running
+    database: 'my_db',
+    password: "123456",
+    dialect: 'postgres',
+    port: 5432
+});
+
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error(
+            'Error acquiring client', err.stack)
+    }
+    client.query('SELECT NOW()', (err, result) => {
+        release()
+        if (err) {
+            return console.error(
+                'Error executing query', err.stack)
+        }
+        console.log("Connected to Database !")
+    })
+})
 
 // Body-parser helps read data from HTTP requests
 const bodyParser = require('body-parser');

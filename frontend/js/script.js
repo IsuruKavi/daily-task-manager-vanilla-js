@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Converts 24-hour time (like "14:30") to 12-hour format with AM/PM (like "2:30 PM")
 function formatTimeTo12Hour(time24) {
   // If no time is provided, return empty string
+  console.log("time",time24)
   if (!time24) return '';
   
   // Split the time string by ":" to get hours and minutes
@@ -105,7 +106,7 @@ const getTasks = async()=>{
       // Add delete button to last column
       newRow.insertCell(3).innerHTML=`<button data-task-id=${task.id} class="delete-btn" >delete</button>`
     })
-    console.log(result);
+    console.log("data_array",result);
   } catch (error) {
     // If there's an error, show user-friendly message
     console.error("Error loading tasks:", error.message);
@@ -127,7 +128,7 @@ document.querySelector("#taskAddForm").addEventListener('submit', async function
     // Get the input fields
     const task = document.querySelector("#task");
     const startTime = document.querySelector("#start-time");
-    
+      console.log("startTime", startTime.value);
     // Send a POST request to the server to create a new task
     const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: "POST",  // HTTP method for creating new data
@@ -182,8 +183,8 @@ const taskList = document.querySelector("#task-list");
 // Listen for clicks anywhere in the task list (event delegation)
 taskList.addEventListener("click", async function (e) {
   // Get the task ID from the clicked button's data attribute
-  const id = Number(e.target.dataset.taskId);
- 
+  const id = e.target.dataset.taskId;
+  console.log(id)
   // Get the current completion state (convert string to boolean)
   const state =(e.target.dataset.state==='false'? false:true);
   console.log("currentState",!state)

@@ -37,6 +37,18 @@ const authMiddleware = (req, res, next) => {
     next()  // Continue to next middleware or route
 }
 
+
+const loggerMiddleware = (req, res, next) => {
+    const currentTime = new Date().toISOString();
+    console.log("_____Request_Log______");
+    console.log("Time: ",currentTime)
+    console.log("Method:", req.method);
+    console.log("URL:", req.originalUrl);
+    console.log("Query:", req.query);
+    console.log("Body:", req.body);
+    console.log("------------------------");
+    next()
+}
 // ============================================
 // FORM VALIDATION MIDDLEWARE
 // ============================================
@@ -149,6 +161,7 @@ module.exports = {
     authMiddleware,
     formValidationMiddleware,
     errorHandler,
-    notFoundHandler
+    notFoundHandler,
+    loggerMiddleware
 }
 

@@ -1,14 +1,14 @@
 // Import middleware functions from util.js
 const {
-    middleware1,
+    loggerMiddleware,
     middleware2,
     authMiddleware,
     formValidationMiddleware,
     errorHandler,
     notFoundHandler
 } = require('./util')
-
-
+const fs=require('fs')
+const { v4: uuidv4 } =require('uuid')
 const express = require('express')
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -19,6 +19,8 @@ const pool = new Pool({
     dialect: 'postgres',
     port: 5432
 });
+const seedQuery=fs.readFileSync('db/seedData.sql',{encoding:"utf8"})
+
 
 pool.connect((err, client, release) => {
     if (err) {
@@ -26,13 +28,18 @@ pool.connect((err, client, release) => {
             'Error acquiring client', err.stack)
     }
     client.query('SELECT NOW()', (err, result) => {
-        release()
+       // release()
         if (err) {
             return console.error(
                 'Error executing query', err.stack)
         }
         console.log("Connected to Database !")
     })
+})
+pool.query(seedQuery, (err, res) => {
+    console.error(err, res)
+    if(!err) console.log('Seeding Completed!')
+   
 })
 
 // Body-parser helps read data from HTTP requests
@@ -59,7 +66,7 @@ app.use(cors()) //allow all origin requests, not recommand for production only f
 app.use(bodyParser.json());
 
 // Use middleware functions from util.js
-app.use(middleware1)  // Logs message for every request
+app.use(loggerMiddleware)  // Logs message for every request
 app.use(middleware2)  // Adds property to request body
 app.use(authMiddleware)  // Authentication middleware (placeholder)
 
@@ -67,14 +74,21 @@ app.use(authMiddleware)  // Authentication middleware (placeholder)
 // API ROUTES - Define endpoints for the server
 // ============================================
 
-app.get('/tasks', (req, res) => {
+app.get('/tasks', async(req, res) => {
     try {
         // Sort tasks: incomplete tasks first, then completed tasks
-        const filteredTaskList = taskList.sort((a, b) => a.isComplete - b.isComplete);
-        console.log(JSON.stringify(filteredTaskList))
-        console.log(taskList)
+        const text = 'SELECT * FROM Task'
+
+ 
+        const dbRes = await pool.query(text)
+       
+        const tasks = dbRes.rows.map((item) => ({
+            id:item.id, task:item.task, startTime: item.start_time,
+            isComplete: item.is_complete
+        }))
+        console.log(tasks)
         // Send sorted task list as JSON response with status 200 (OK)
-        res.status(200).json(filteredTaskList)
+        res.status(200).json(tasks)
     } catch (error) {
         // If any error occurs, send error response
         console.error("Error getting tasks:", error);
@@ -85,26 +99,24 @@ app.get('/tasks', (req, res) => {
 // POST /tasks - Create a new task
 // This route creates a new task and adds it to the taskList array
 // formValidationMiddleware runs FIRST to validate the data before this handler executes
-app.post('/tasks', formValidationMiddleware, (req, res) => {
+app.post('/tasks', formValidationMiddleware, async(req, res) => {
     try {
         console.log("Creating new task...")
         console.log(req.body)
         
         // Extract task name and start time (already validated by middleware)
         const { task, startTime } = req.body;
-        
+        const id = uuidv4();
         // Create a new task object
         // id: Use timestamp to ensure unique IDs (better than array length)
         // Using Date.now() ensures unique IDs even if tasks are deleted
         // isComplete: set to false by default
-        const newTask = { id: Date.now(), task, startTime, isComplete: false }
-        
-        // Add the new task to the array
-        taskList.push(newTask)
-        console.log("taskList", taskList)
-        
-        // Send the newly created task as JSON response with status 201 (Created)
-        res.status(201).json(newTask);
+        const text = 'INSERT INTO Task(id,task,start_time) VALUES($1, $2,$3) RETURNING *'
+const values = [id,task,startTime]
+ 
+        const dbRes = await pool.query(text, values)
+        console.log(dbRes)
+        res.status(201).json(dbRes);
     } catch (error) {
         // If any error occurs, send error response
         console.error("Error creating task:", error);
@@ -115,27 +127,25 @@ app.post('/tasks', formValidationMiddleware, (req, res) => {
 // PATCH /tasks - Update a task's completion status
 // This route updates whether a task is complete or not
 // formValidationMiddleware runs FIRST to validate the data before this handler executes
-app.patch('/tasks', formValidationMiddleware, (req, res) => {
+app.patch('/tasks', formValidationMiddleware, async(req, res) => {
     try {
         console.log("Updating task...")
         console.log(req.body)
         
         // Extract task id and new completion status (already validated by middleware)
-        const { id, isComplete } = req.body;
-        
-        // Find the index of the task with matching id
-        const indexToChangeValue = taskList.findIndex(task => task.id === Number(id));
-        
-        // Check if task was found
-        if (indexToChangeValue === -1) {
+        const {  id,isComplete } = req.body;
+      
+     
+        const text = 'UPDATE Task SET is_complete=$1 WHERE id=$2 RETURNING *'
+        const values = [isComplete,id]
+ 
+        const dbRes = await pool.query(text, values)
+        console.log("success")
+        if (dbRes.rows.length === 0) {
             return res.status(404).json({ error: "Task not found" });
-        }
-        
-        // Update the task's completion status
-        taskList[indexToChangeValue].isComplete = isComplete;
-        
+          }
         // Send the updated task as JSON response with status 200 (OK)
-        res.status(200).json(taskList[indexToChangeValue]);
+        res.status(200).json(dbRes.rows[0]);
     } catch (error) {
         // If any error occurs, send error response
         console.error("Error updating task:", error);
@@ -145,7 +155,7 @@ app.patch('/tasks', formValidationMiddleware, (req, res) => {
 
 // DELETE /tasks/:id - Delete a task by ID
 // This route removes a task from the taskList array
-app.delete('/tasks/:id', (req, res) => {
+app.delete('/tasks/:id', async(req, res) => {
     try {
         // Get the task ID from the URL parameter
         const taskId = req.params.id
@@ -154,20 +164,19 @@ app.delete('/tasks/:id', (req, res) => {
         if (!taskId) {
             return res.status(400).json({ error: "Task ID is required" });
         }
+        const text = 'DELETE FROM Task WHERE id=$1 RETURNING *'
+        const values = [taskId]
+ 
+        const dbRes = await pool.query(text, values)
         
         // Find the index of the task with matching id
-        const indexToRemove = taskList.findIndex(task => task.id === Number(taskId));
-        
-        // Check if task was found
-        if (indexToRemove === -1) {
-            return res.status(404).json({ error: "Task not found" });
-        }
+      
         
         // Remove 1 element at the found index
-        taskList.splice(indexToRemove, 1)
+    
         
         // Send confirmation with the deleted task's ID and status 200 (OK)
-        res.status(200).json({ message: "Task deleted successfully", id: taskId });
+        res.status(200).json({ message: "Task deleted successfully", taskId});
     } catch (error) {
         // If any error occurs, send error response
         console.error("Error deleting task:", error);
